@@ -1,23 +1,22 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: SearchEngineKeyWordCounter.Controllers.HomeController
-// Assembly: SearchEngineKeyWordCounter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 8E9D6ED4-F37D-45A7-8FCF-62098EDA6852
-// Assembly location: C:\Users\tobst\source\repos\New folder\SearchEngineKeyWordCounter.dll
-
-using SearchEngineKeyWordCounter.Models;
+﻿using SearchEngineKeyWordCounter.Models;
 using SearchEngineKeyWordCounter.SearchLogic;
 using SearchEngineKeyWordCounter.SharedLogic;
 using System.Web.Mvc;
+using SearchEngineWordCount.Unity;
+using Unity;
 
 namespace SearchEngineKeyWordCounter.Controllers
 {
   public class HomeController : Controller
   {
-    private MainPageModel MainPageModel = new MainPageModel();
+        private MainPageModel MainPageModel = new MainPageModel();
 
-    public ActionResult Index()
+
+        public ActionResult Index()
     {
-      return (ActionResult) this.View((object) this.MainPageModel);
+       UnityRegistration.SetUpUnity();
+
+       return this.View(MainPageModel);
     }
 
     [HttpPost]
@@ -27,23 +26,21 @@ namespace SearchEngineKeyWordCounter.Controllers
       {
         this.GuardString(model.KeyWordList);
         this.GuardString(model.KeyWordList);
-        if (!this.ModelState.IsValid)
-          ;
-        MainEntryLogicForSearch entryLogicForSearch = new MainEntryLogicForSearch();
-        model.OutPutMessage = entryLogicForSearch.MainLogic(model.KeyWordList, model.SearchList, model.WordToSearchOn);
-        return (ActionResult) this.View("Index", (object) model);
+        var entryLogicForSearch = UnityRegistration.Retrieve<IControllerForSearch>();
+         model.OutPutMessage = entryLogicForSearch.MainLogic(model.KeyWordList, model.SearchList, model.WordToSearchOn);
+        return this.View("Index", model);
       }
       catch (InputStringIsNullOrEmptyException ex)
       {
         model.OutPutMessage = ex.Message;
-        return (ActionResult) this.View("Index", (object) model);
+        return this.View("Index", model);
       }
     }
 
     private string GuardString(string stringCheck)
     {
       if (string.IsNullOrWhiteSpace(stringCheck))
-        throw new InputStringIsNullOrEmptyException(string.Format("{0} cannot be null or empty, please input a value", (object) stringCheck));
+        throw new InputStringIsNullOrEmptyException(string.Format("{0} cannot be null or empty, please input a value", stringCheck));
       return stringCheck;
     }
   }

@@ -1,33 +1,61 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: SearchEngineKeyWordCounter.SearchLogic.GetDataClass
-// Assembly: SearchEngineKeyWordCounter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 8E9D6ED4-F37D-45A7-8FCF-62098EDA6852
-// Assembly location: C:\Users\tobst\source\repos\New folder\SearchEngineKeyWordCounter.dll
-
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 
 namespace SearchEngineKeyWordCounter.SearchLogic
 {
-  public class GetDataClass
-  {
-    private const string regExToExtract = "url\\?q=(https?:\\/\\/[^#?\\/]+)";
-
-    public string fetchSearchResultsandProcess(string requestURL, string matchUrl)
+    public class GetDataClass : IGetDataClass
     {
-      return this.calculateCount(new WebClient().DownloadString(requestURL), matchUrl);
-    }
+        private const string regExToExtract = "url\\?q=(https?:\\/\\/[^#?\\/]+)";
 
-    private string calculateCount(string text, string matchUrl)
-    {
-      MatchCollection matchCollection = Regex.Matches(text, "url\\?q=(https?:\\/\\/[^#?\\/]+)");
-      int num = 0;
-      foreach (Match match in matchCollection)
-      {
-        if (matchUrl == match.Groups[1].Value)
-          ++num;
-      }
-      return num.ToString();
+        private const string NumberOfPages = "100";
+
+        public string fetchSearchResultsandProcess(string searchEngine,string KeyWords, string matchUrl)
+        {
+            var urlConstructed = UrlConstructor(searchEngine, KeyWords);
+            return this.calculateCount(new WebClient().DownloadString(urlConstructed), matchUrl);
+        }
+
+        private string calculateCount(string text, string matchUrl)
+        {
+            MatchCollection matchCollection = Regex.Matches(text, regExToExtract);
+            int num = 0;
+            foreach (Match match in matchCollection)
+            {
+                if (matchUrl == match.Groups[1].Value)
+                    ++num;
+            }
+            return num.ToString();
+        }
+
+        private string UrlConstructor(string searchEngine, string constructedKeyWords)
+        {
+            return searchEngine + "/search?num=" + NumberOfPages + "&q=" + KeyWordToUrlConstructor(constructedKeyWords);
+        }
+
+        private string KeyWordToUrlConstructor(string keyWords)
+        {
+            List<string> stringList = new List<string>();
+            string str = "";
+            foreach (char keyWord in keyWords)
+            {
+                if (!char.IsWhiteSpace(keyWord) && keyWord != keyWords.Last<char>())
+                    str += keyWord.ToString();
+                else if (!char.IsWhiteSpace(keyWord))
+                {
+                    str += keyWord.ToString();
+                    stringList.Add(str);
+                }
+                else
+                {
+                    stringList.Add(str);
+                    str = "";
+                    if (stringList.LastIndexOf("+") != stringList.Count - 1 && stringList.Count > 0U)
+                        stringList.Add("+");
+                }
+            }
+            return string.Join("", stringList);
+        }
     }
-  }
 }

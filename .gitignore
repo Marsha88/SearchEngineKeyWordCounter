@@ -5,3 +5,5 @@
 /.vs
 /packages
 /SearchEngineKeyWordCounter/bin
+/SearchEngineKeyWordUnitTests/bin/Debug/netcoreapp2.1
+/SearchEngineKeyWordUnitTests/obj
