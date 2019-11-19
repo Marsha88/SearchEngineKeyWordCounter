@@ -1,4 +1,3 @@
-C:\Users\tobst\Source\Repos\SearchEngineKeyWordCounter\SearchEngineKeyWordCounter\obj\Debug\SearchEngineKeyWordCounter.csprojAssemblyReference.cache
 C:\Users\tobst\Source\Repos\SearchEngineKeyWordCounter\SearchEngineKeyWordCounter\obj\Debug\SearchEngineKeyWordCounter.csproj.CoreCompileInputs.cache
 C:\Users\tobst\Source\Repos\SearchEngineKeyWordCounter\SearchEngineKeyWordCounter\obj\Debug\SearchEngineWordCount.dll
 C:\Users\tobst\Source\Repos\SearchEngineKeyWordCounter\SearchEngineKeyWordCounter\obj\Debug\SearchEngineWordCount.pdb

@@ -19,4 +19,10 @@
     <ProjectReference Include="..\SearchEngineKeyWordCounter\SearchEngineKeyWordCounter.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Test Data\TestData - 1 match.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

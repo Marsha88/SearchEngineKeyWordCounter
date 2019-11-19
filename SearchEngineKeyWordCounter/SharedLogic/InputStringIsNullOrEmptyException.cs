@@ -8,6 +8,9 @@ using System;
 
 namespace SearchEngineKeyWordCounter.SharedLogic
 {
+  /// <summary>
+  /// Exception for string is null or empty.
+  /// </summary>
   public class InputStringIsNullOrEmptyException : Exception
   {
     public InputStringIsNullOrEmptyException()

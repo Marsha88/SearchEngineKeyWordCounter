@@ -130,18 +130,20 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="ExternalCalls\IWebClientHelper.cs" />
+    <Compile Include="ExternalCalls\WebClientHelper.cs" />
+    <Compile Include="Logging\ILogOutToFile.cs" />
+    <Compile Include="Logging\LogOutToFile.cs" />
     <Compile Include="Unity\UnityRegistration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\MainPageModel.cs" />
-    <Compile Include="Models\SearchEngineList.cs" />
     <Compile Include="SearchLogic\GetDataClass.cs" />
     <Compile Include="SearchLogic\IGetDataClass.cs" />
     <Compile Include="SearchLogic\IControllerForSearch.cs" />
     <Compile Include="SearchLogic\ControllerForSearch.cs" />
     <Compile Include="SharedLogic\InputStringIsNullOrEmptyException.cs" />
-    <Compile Include="SharedLogic\InputStringNotInRightFormatException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -11,17 +11,18 @@
 
 @using (Html.BeginForm("KeyWordSearch", "Home", FormMethod.Post))
 {
-    <p>
-        <text>"Input the Search Engine Url to search for:</text>
-        @Html.TextAreaFor(Model => Model.SearchList)
-    </p>
+<p>
+    @*TODO Make this able to accept other Search Engines*@
+    <text>"The Search Engine Url to search for:</text>
+    @Model.SearchEngine
+</p>
     <p>
         <text>"Input the key words to search on:</text>
-        @Html.TextBoxFor(Model => Model.KeyWordList)
+        @Html.TextBoxFor(Model => Model.SearchKeyWords)
     </p>
     <p>
         <text>"Input the Url to search for:</text>
-        @Html.TextBoxFor(Model => Model.WordToSearchOn)
+        @Html.TextBoxFor(Model => Model.SearchURL)
     </p>
     <button type="submit">KeyWordSearch</button>
     <p>

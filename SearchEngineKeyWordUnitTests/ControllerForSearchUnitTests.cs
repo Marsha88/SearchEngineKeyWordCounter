@@ -3,10 +3,12 @@ using NUnit.Framework;
 using SearchEngineKeyWordCounter.SearchLogic;
 using FluentAssertions;
 using System.Text.RegularExpressions;
+using SearchEngineWordCount.ExternalCalls;
+using SearchEngineWordCount.Logging;
 
-namespace Tests
+namespace SearchEngineKeyWordUnitTests
 {
-    public class Tests
+    public class ControllerForSearchUnitTests
     {
         [SetUp]
         public void Setup()
@@ -22,8 +24,10 @@ namespace Tests
             var testSearchWord = "www.TestSearchWord.com";
             var testCount = "3";
             var mockedGetDataClass = new Mock<IGetDataClass>();
-            mockedGetDataClass.Setup(m => m.fetchSearchResultsandProcess( CheckUrl(testSearchEngine), testKeyWords, CheckUrl(testSearchWord))).Returns(testCount);
-            var testController = new ControllerForSearch(mockedGetDataClass.Object);
+            var mockedILogOutToFile = new Mock<ILogOutToFile>();
+            var mockedIWebClientHelper = new Mock<WebClientHelper>();
+            mockedGetDataClass.Setup(m => m.fetchSearchResultsandProcess(CheckUrl("https://" + testSearchEngine), testKeyWords, CheckUrl("https://" + testSearchWord))).Returns(testCount);
+            var testController = new ControllerForSearch(mockedGetDataClass.Object, mockedIWebClientHelper.Object, mockedILogOutToFile.Object);
 
             //Act 
             var testResult = testController.MainLogic(testKeyWords,testSearchEngine,testSearchWord);
@@ -43,8 +47,10 @@ namespace Tests
             var testCount = "3";
             var transportType = "http://";
             var mockedGetDataClass = new Mock<IGetDataClass>();
+            var mockedILogOutToFile = new Mock<ILogOutToFile>();
+            var mockedIWebClientHelper = new Mock<WebClientHelper>();
             mockedGetDataClass.Setup(m => m.fetchSearchResultsandProcess(CheckUrl(transportType + testSearchEngine), testKeyWords, CheckUrl(transportType + testSearchWord))).Returns(testCount);
-            var testController = new ControllerForSearch(mockedGetDataClass.Object);
+            var testController = new ControllerForSearch(mockedGetDataClass.Object, mockedIWebClientHelper.Object, mockedILogOutToFile.Object);
 
             //Act 
             var testResult = testController.MainLogic(testKeyWords, testSearchEngine, testSearchWord);
@@ -64,8 +70,10 @@ namespace Tests
             var testCount = "3";
             var transportType = "https://";
             var mockedGetDataClass = new Mock<IGetDataClass>();
+            var mockedILogOutToFile = new Mock<ILogOutToFile>();
+            var mockedIWebClientHelper = new Mock<WebClientHelper>();
             mockedGetDataClass.Setup(m => m.fetchSearchResultsandProcess(CheckUrl(transportType + testSearchEngine), testKeyWords, CheckUrl(transportType + testSearchWord))).Returns(testCount);
-            var testController = new ControllerForSearch(mockedGetDataClass.Object);
+            var testController = new ControllerForSearch(mockedGetDataClass.Object, mockedIWebClientHelper.Object, mockedILogOutToFile.Object);
 
             //Act 
             var testResult = testController.MainLogic(testKeyWords, testSearchEngine, testSearchWord);
