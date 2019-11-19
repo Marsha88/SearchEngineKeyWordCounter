@@ -1,6 +1,7 @@
 ﻿using SearchEngineWordCount.ExternalCalls;
 using SearchEngineWordCount.Unity;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -18,12 +19,12 @@ namespace SearchEngineKeyWordCounter.SearchLogic
         /// <summary>
         /// Extract regex to get only the urls.
         /// </summary>
-        private const string regExToExtract = "url\\?q=(https?:\\/\\/[^#?\\/]+)";
+        private  string regExToExtract = ConfigurationManager.AppSettings["regExToExtract"];
 
         /// <summary>
         /// Number of pages to search.
         /// </summary>
-        private const string NumberOfPages = "100";
+        private  string NumberOfPages = ConfigurationManager.AppSettings["NumberOfPages"];
 
         /// <summary>
         /// The WebClient that is injected.
