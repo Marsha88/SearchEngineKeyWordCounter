@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>SearchEngineKeyWordCounter Application</h1>
+    <p class="lead">Use this application to get a count of the amount of times a URL appears in the top X searches. </p>
+</div>
+
+@model SearchEngineKeyWordCounter.Models.MainPageModel
+
+@using (Html.BeginForm("Subscribe", "Home", FormMethod.Post))
+{
+    <p>
+        <text>"Input the Search Engine Url to search for:</text>
+        @Html.TextAreaFor(Model => Model.SearchList)
+    </p>
+    <p>
+        <text>"Input the key words to search on:</text>
+        @Html.TextBoxFor(Model => Model.KeyWordList)
+    </p>
+    <p>
+        <text>"Input the Url to search for:</text>
+        @Html.TextBoxFor(Model => Model.WordToSearchOn)
+    </p>
+    <button type="submit">KeyWordSearch</button>
+    <p>
+        @Model.OutPutMessage
+    </p>
+}
