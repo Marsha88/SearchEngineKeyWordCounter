@@ -26,8 +26,8 @@ namespace SearchEngineWordCount.Logging
             Directory.CreateDirectory(writeLocation);
 
             using (StreamWriter sw = File.AppendText(writeLocation + "\\" + logType + ".txt"))
-            {
-                sw.WriteLine(stringToWriteOut);
+            { 
+                sw.WriteLine(string.Format("At the Time {0} , {1}", currentTime.TimeOfDay, stringToWriteOut));
                 sw.WriteLine();
 
             }

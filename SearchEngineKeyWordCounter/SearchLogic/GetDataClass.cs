@@ -19,7 +19,7 @@ namespace SearchEngineKeyWordCounter.SearchLogic
         /// <summary>
         /// Extract regex to get only the urls.
         /// </summary>
-        private  string regExToExtract = ConfigurationManager.AppSettings["regExToExtract"]?? "url\\?q=(https?:\\/\\/[^#?\\/]+)";
+        private  string regExToExtract = ConfigurationManager.AppSettings["regExToExtract"]?? @"url\?q=(https?:\/\/[^#?\/]+)";
 
         /// <summary>
         /// Number of pages to search.
