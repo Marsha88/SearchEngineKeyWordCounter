@@ -11,9 +11,9 @@ Simple application that gathers the search results from google of the top 100 re
 *HOW TO RUN IN VISUAL STUDIO*
 1) Download/Pull the Data from this repo.
 2) Open it up in visual studio.
-3) Build The Solution.
+3) Re-Build the solution (so the project can pick up roslyn files again).
 4) Click the run button.
-5) It should open up your chosen explorer with the application running.#
+5) It should open up your chosen explorer with the application running.
 
 *HOW TO RUN IN IIS*
 1) Download/Pull the Data from this repo.
