@@ -13,16 +13,40 @@ namespace SearchEngineKeyWordUnitTests
         public void GivenAValidUrl_WhenfetchSearchResultsandProcessIsRan_ThenItShouldReturnTheCorrectCount()
         {
             //Arrange
-            var testKeyWords = "https://www.gov.uk";
+            var testSearchWord = "https://www.gov.uk";
             var testSearchEngine = "www.gooogle.com";
-            var testSearchWord = "www.TestSearchWord.com";
+            var testKeyWords = "TestSearchWord";
+
             var mockWebClientHelper = new Mock<IWebClientHelper>();
             mockWebClientHelper.Setup(m => m.returnWebClientResource(It.IsAny<string>())).Returns(System.IO.File.ReadAllText("Test Data/TestData - 1 match.txt"));
 
             var testGetDataClass = new GetDataClass(mockWebClientHelper.Object);
 
             //Act
-            var testCount = testGetDataClass.fetchSearchResultsandProcess(testSearchEngine, testSearchWord, testKeyWords);
+            var testCount = testGetDataClass.fetchSearchResultsandProcess(testSearchEngine, testKeyWords, testSearchWord);
+
+            //Assert 
+            testCount.Should().Be("3");
+
+
+
+        }
+
+        [Test]
+        public void GivenAKeyWordWithLotsOfSpecialCharacters_WhenfetchSearchResultsandProcessIsRan_ThenItShouldStillReturnTheCorrectCountAndNoExceptionThrown()
+        {
+            //Arrange
+            var testSearchWord = "https://www.gov.uk";
+            var testKeyWords = "@+!£$%^     &* () ' '";
+            var testSearchEngine = "www.google.com";
+
+            var mockWebClientHelper = new Mock<IWebClientHelper>();
+            mockWebClientHelper.Setup(m => m.returnWebClientResource(testSearchEngine+ "/search?num=100&q=@+!£$%^+&*+()+'+'")).Returns(System.IO.File.ReadAllText("Test Data/TestData - 1 match.txt"));
+
+            var testGetDataClass = new GetDataClass(mockWebClientHelper.Object);
+
+            //Act
+            var testCount = testGetDataClass.fetchSearchResultsandProcess(testSearchEngine, testKeyWords, testSearchWord);
 
             //Assert 
             testCount.Should().Be("3");

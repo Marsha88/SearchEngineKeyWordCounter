@@ -7,3 +7,6 @@
 /SearchEngineKeyWordCounter/bin
 /SearchEngineKeyWordUnitTests/bin/Debug/netcoreapp2.1
 /SearchEngineKeyWordUnitTests/obj
+/SearchEngineKeyWordCounter/obj/Release/Package
+/SearchEngineKeyWordCounter/Properties/PublishProfiles
+/SearchEngineKeyWordCounter/obj

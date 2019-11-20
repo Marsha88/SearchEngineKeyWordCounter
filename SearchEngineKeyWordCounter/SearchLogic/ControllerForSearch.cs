@@ -45,12 +45,12 @@ namespace SearchEngineKeyWordCounter.SearchLogic
                 matchUrl = this.CheckUrl(matchUrl);
                 searchEngine = this.CheckUrl(searchEngine);
                 var countString = string.Format("The count of {0}, in search engine {1} is : {2}", matchUrl, searchEngine, getDataClass.fetchSearchResultsandProcess(searchEngine, keyWords, matchUrl));
-                logOutToFile.WriteToFile(countString, "OutPut Log");
+                logOutToFile.WriteToFile(countString, "Output Log");
                 return countString;
             }
             catch (Exception e)
             {
-                var exceptionString = string.Format("An Exception Has occured While Opperating, Exception was : {0}", e.Message);
+                var exceptionString = string.Format("An Exception Has occured While Operating, Exception was : {0}", e.Message);
                 logOutToFile.WriteToFile(exceptionString+e, "Exception Log");
                 return exceptionString + " please see the log for more detail";
             }

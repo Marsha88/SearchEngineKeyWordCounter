@@ -19,12 +19,12 @@ namespace SearchEngineKeyWordCounter.SearchLogic
         /// <summary>
         /// Extract regex to get only the urls.
         /// </summary>
-        private  string regExToExtract = ConfigurationManager.AppSettings["regExToExtract"];
+        private  string regExToExtract = ConfigurationManager.AppSettings["regExToExtract"]?? "url\\?q=(https?:\\/\\/[^#?\\/]+)";
 
         /// <summary>
         /// Number of pages to search.
         /// </summary>
-        private  string NumberOfPages = ConfigurationManager.AppSettings["NumberOfPages"];
+        private  string NumberOfPages = ConfigurationManager.AppSettings["NumberOfPages"]??"100";
 
         /// <summary>
         /// The WebClient that is injected.
@@ -90,26 +90,11 @@ namespace SearchEngineKeyWordCounter.SearchLogic
         /// <returns>key words with whitespaces removed.</returns>
         private string KeyWordToUrlConstructor(string keyWords)
         {
-            List<string> stringList = new List<string>();
-            string str = "";
-            foreach (char keyWord in keyWords)
-            {
-                if (!char.IsWhiteSpace(keyWord) && keyWord != keyWords.Last<char>())
-                    str += keyWord.ToString();
-                else if (!char.IsWhiteSpace(keyWord))
-                {
-                    str += keyWord.ToString();
-                    stringList.Add(str);
-                }
-                else
-                {
-                    stringList.Add(str);
-                    str = "";
-                    if (stringList.LastIndexOf("+") != stringList.Count - 1 && stringList.Count > 0U)
-                        stringList.Add("+");
-                }
-            }
-            return string.Join("", stringList);
+
+            var regExRemoveWhiteSpace = new Regex(@"\s+");
+            keyWords = regExRemoveWhiteSpace.Replace(keyWords, "+");
+
+            return keyWords;
         }
     }
 }
